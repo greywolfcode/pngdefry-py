@@ -1,0 +1,3 @@
+[submodule "pngdefry"]
+	path = libs/pngdefry
+	url = https://github.com/greywolfcode/pngdefry
