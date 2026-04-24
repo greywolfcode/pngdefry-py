@@ -13,7 +13,7 @@ _list_all_chunks = False      # -l
 _verbose = False              # -v
 _process_all_files = False    # -p
 _very_verbose = False         # -d
-_ignore_bad_CRC32 - False     # -C
+_ignore_bad_CRC32 = False     # -C
 
 def init():
     """
@@ -185,13 +185,13 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
 if __name__ == "__main__":
     import argparse #only need argparse if running as main file
 
-    parser = argparse.PARSER(prog="PNGdefry-py",
+    parser = argparse.ArgumentParser(prog="PNGdefry-py",
                     description="Removes -iphone specific data chunk, reverses colors from BGRA to RGBA, and de-multiplies alpha",
                     epilog="Note: without -s or -o, NO output will be created.")
     
     parser.add_argument('files')
     parser.add_argument('-s', '--suffix', help="append suffix to output file name", default=None)
-    parser.add_argument('-o', '--output', help="write output file(s) to path", default=None)
+    parser.add_argument('-o', '--output-path', help="write output file(s) to path", default=None)
     parser.add_argument('-a', help="do NOT de-multiply alpha", action="store_true")
     parser.add_argument('-l', help="list all chunks", action="store_true")
     parser.add_argument('-v', help="verbose processing", action="store_true")
