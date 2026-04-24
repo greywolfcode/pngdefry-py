@@ -180,3 +180,27 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
     argv = (c_char_p * argc)(*byte_args)
 
     _pngdefry_lib.main(argc, argv)
+
+# Option to use as command line tool
+if __name__ == "__main__":
+    import argparse #only need argparse if running as main file
+
+    parser = argparse.PARSER(prog="PNGdefry-py",
+                    description="Removes -iphone specific data chunk, reverses colors from BGRA to RGBA, and de-multiplies alpha",
+                    epilog="Note: without -s or -o, NO output will be created.")
+    
+    parser.add_argument('files')
+    parser.add_argument('-s', '--suffix', help="append suffix to output file name", default=None)
+    parser.add_argument('-o', '--output', help="write output file(s) to path", default=None)
+    parser.add_argument('-a', help="do NOT de-multiply alpha", action="store_true")
+    parser.add_argument('-l', help="list all chunks", action="store_true")
+    parser.add_argument('-v', help="verbose processing", action="store_true")
+    parser.add_argument('-i', help="max IDAT chunk size in bytes (minimum: 1024; default: 524288))", default="524288", type=int)
+    parser.add_argument('-p', help="process all files, not just -iphone ones (for debugging purposed only)", action="store_true")
+    parser.add_argument('-d', help="very verbose processing (for debugging purposes only)", action="store_true")
+    parser.add_argument('-C', help="ignore bad CRC32 (recommended: do NOT use this, as a bad CRC32 may indicate a deliberately damaged file)", action="store_true")
+
+    args = parser.parse_args()
+
+    init()
+    convert(args.files, args.suffix, args.output, args.a, args.l, args.v, args.i, args.p, args.d, args.C)
