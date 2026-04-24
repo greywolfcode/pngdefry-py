@@ -23,15 +23,15 @@ def init():
     global _initalised
 
     # load required library
-    if platform.system == "Windows":
-        _pngdefry_lib = ctypes.CDLL("pngdefry.dll")
-    elif platform.system == "Linux":
-        _pngdefry_lib = ctypes.CDLL("pngdefry.so")
+    if platform.system() == "Windows":
+        _pngdefry_lib = ctypes.CDLL("./pngdefry.dll")
+    elif platform.system() == "Linux":
+        _pngdefry_lib = ctypes.CDLL("./pngdefry.so")
     else:
-        raise OSError("No library is supported for your OS")
+        raise OSError("No library is supported for your OS (" + platform.system() + ")")
 
     # specify arg types
-    _pngdefry_lib.main.argtypes = (c_int, POINTER(c_char_p))
+    _pngdefry_lib.main.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_char_p))
 
     _initalised = True
 
@@ -177,7 +177,7 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
 
     # convert args to array useable by C
     byte_args = list(map(_enocde_utf_8, args))
-    argv = (c_char_p * argc)(*byte_args)
+    argv = (ctypes.c_char_p * argc)(*byte_args)
 
     _pngdefry_lib.main(argc, argv)
 
@@ -189,7 +189,7 @@ if __name__ == "__main__":
                     description="Removes -iphone specific data chunk, reverses colors from BGRA to RGBA, and de-multiplies alpha",
                     epilog="Note: without -s or -o, NO output will be created.")
     
-    parser.add_argument('files')
+    parser.add_argument('files', nargs='+')
     parser.add_argument('-s', '--suffix', help="append suffix to output file name", default=None)
     parser.add_argument('-o', '--output-path', help="write output file(s) to path", default=None)
     parser.add_argument('-a', help="do NOT de-multiply alpha", action="store_true")
