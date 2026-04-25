@@ -18,7 +18,7 @@ _ignore_bad_CRC32 = False     # -C
 
 def init():
     """
-    Initalises pngdefry-py and load pngdefry library
+    Initalises pngdefry-py and loads the pngdefry library for your OS
     """
     global _pngdefry_lib
     global _initalised
@@ -40,20 +40,21 @@ def init():
 
 def set_flag(flag, value):
     """
-    Sets a specific flag for use in conversion
+    Sets a specific flag as default for use in conversion.
+    If no flags are passed to convert(), these will be used
 
     Args: 
         flag (string): the flag to set
         value (boolean): the value to set the flag to
 
     Flag Options:
-    	s         append suffix to output file name
-		a         do NOT de-multiply alpha
-		l         list all chunks
-		v         verbose processing
-		p         process all files, not just -iphone ones (for debugging purposed only)
-		d         very verbose processing (for debugging purposes only)
-	    C         ignore bad CRC32 (recommended: do NOT use this, as a bad CRC32 may indicate a deliberately damaged file)
+        s:   append suffix to output file name
+        a:   do NOT de-multiply alpha
+        l:   list all chunks
+        v:   verbose processing
+        p:   process all files, not just -iphone ones (for debugging purposed only)
+        d:   very verbose processing (for debugging purposes only)
+        C:   ignore bad CRC32 (recommended: do NOT use this, as a bad CRC32 may indicate a deliberately damaged file)
     """
 
     global _suffix
@@ -110,18 +111,19 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
 	Removes -iphone specific data chunk, reverses colors from BGRA to RGBA, and de-multiplies alpha
 	
     Args:
-        file (str/Path) Path to the file(s)
-		s (suffix)      append suffix to output file name
-		o (path)        write output file(s) to path
-		a (bool)        do NOT de-multiply alpha
-		l (bool)        list all chunks
-		v (bool)        verbose processing
-		i (value)       max IDAT chunk size in bytes (minimum: 1024)
-		p (bool)        process all files, not just -iphone ones (for debugging purposed only)
-		d (bool)        very verbose processing (for debugging purposes only)
-		C (bool)        ignore bad CRC32 (recommended: do NOT use this, as a bad CRC32 may indicate a deliberately damaged file)
+        file (str|Path):     Path to the file(s)
+        s (str|suffix):      append suffix to output file name
+        o (str|path):        write output file(s) to path
+		a (bool):            do NOT de-multiply alpha
+        l (bool):            list all chunks
+        v (bool):            verbose processing
+        i (int):             max IDAT chunk size in bytes (minimum: 1024)
+        p (bool):            process all files, not just -iphone ones (for debugging purposed only)
+        d (bool):            very verbose processing (for debugging purposes only)
+        C (bool):            ignore bad CRC32 (recommended: do NOT use this, as a bad CRC32 may indicate a deliberately damaged file)
 
-    Note: without s or o, NO output will be created;
+    Note: 
+        without s or o, NO output will be created
     """
 
     if not _initalised:
