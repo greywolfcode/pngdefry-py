@@ -99,7 +99,7 @@ def _get_file_list(files):
             raise TypeError(str(file) + " of type " + type(file) +  "is not a valid type for file path")
     return paths
 
-def _enocde_utf_8(string):
+def _encode_utf_8(string):
     return string.encode("utf-8)")
 
 def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None, C=None):
@@ -173,10 +173,10 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
     file_paths = _get_file_list(file)
     args.extend(file_paths)
 
-    argc = len(args)
+    argc = len(args) + 1 # the 1 is expected as the name used to run the program
 
     # convert args to array useable by C
-    byte_args = list(map(_enocde_utf_8, args))
+    byte_args = list(map(_encode_utf_8, args))
     argv = (ctypes.c_char_p * argc)(*byte_args)
 
     _pngdefry_lib.main(argc, argv)
@@ -195,7 +195,7 @@ if __name__ == "__main__":
     parser.add_argument('-a', help="do NOT de-multiply alpha", action="store_true")
     parser.add_argument('-l', help="list all chunks", action="store_true")
     parser.add_argument('-v', help="verbose processing", action="store_true")
-    parser.add_argument('-i', help="max IDAT chunk size in bytes (minimum: 1024; default: 524288))", default="524288", type=int)
+    parser.add_argument('-i', help="max IDAT chunk size in bytes (minimum: 1024; default: 524288))", default=None, type=int)
     parser.add_argument('-p', help="process all files, not just -iphone ones (for debugging purposed only)", action="store_true")
     parser.add_argument('-d', help="very verbose processing (for debugging purposes only)", action="store_true")
     parser.add_argument('-C', help="ignore bad CRC32 (recommended: do NOT use this, as a bad CRC32 may indicate a deliberately damaged file)", action="store_true")
@@ -203,4 +203,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     init()
-    convert(args.files, args.suffix, args.output, args.a, args.l, args.v, args.i, args.p, args.d, args.C)
+    convert(args.files, args.suffix, args.output_path, args.a, args.l, args.v, args.i, args.p, args.d, args.C)
