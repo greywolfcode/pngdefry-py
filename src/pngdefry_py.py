@@ -1,6 +1,7 @@
 import ctypes
 import platform
 from pathlib import Path
+import os
 
 # variable to store library in
 _pngdefry_lib = None 
@@ -80,7 +81,7 @@ def set_flag(flag, value):
 def _get_file_list(files):
     #s ingle file in a string
     if isinstance(files, str):
-        return [files]
+        return [files.replace("\\", "/")]
     elif isinstance(files, list):
         pass
     # not a valid path type!
@@ -91,9 +92,9 @@ def _get_file_list(files):
     paths = []
     for file in files:
         if isinstance(file, str):
-            paths.append(file)
+            paths.append(file.replace("\\", "/"))
         elif isinstance(file, Path):
-            paths.append(str(file))
+            paths.append(str(file).replace("\\", "/"))
         # not a valid path type!
         else:
             raise TypeError(str(file) + " of type " + type(file) +  "is not a valid type for file path")
@@ -134,7 +135,8 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
         args.append(s)
     if o != None:
         args.append("-o")
-        args.append(o)
+        output_path = o.replace("\\", "/")
+        args.append(output_path)
     if a == None:
         if _dont_multiply_alpha:
             args.append("-a")
@@ -152,7 +154,7 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
         args.append("-v")
     if i != None:
         args.append("-i")
-        args.append(i)
+        args.append(str(i))
     if p == None:
         if _process_all_files:
             args.append("-p")
