@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pngdefry
 
 file = input("\nEnter path to CgBI file: ")
@@ -5,12 +7,13 @@ file = input("\nEnter path to CgBI file: ")
 if (file[0] == '"' and file[-1] == '"'):
     file = file[1:-1]
 
-# ____test not initalising pngdefry____
+# ____test not initalising pngdefry_py____
 
+print("\nTesting conversion before initalisation:\n")
 try:
     pngdefry.convert(file)
 except(RuntimeError):
-    print("\nUninitalised Error succesfully thrown")
+    print("Uninitalised Error succesfully thrown")
 
 pngdefry.init()
 
@@ -23,7 +26,9 @@ print("\nTest -s:\n")
 pngdefry.convert(file, s=".png")
 
 print("\nTest -o:\n")
-pngdefry.convert(file, o="image_output/")
+# need to create directory; pngdefry won't
+Path("image_output").mkdir(exist_ok=True)
+pngdefry.convert(file, o="image_output")
 
 print("\nTest -a:\n")
 pngdefry.convert(file, a=True)
