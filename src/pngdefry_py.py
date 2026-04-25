@@ -124,7 +124,7 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
     if not _initalised:
         raise RuntimeError("pngdefry was not initalised")
 
-    args = []
+    args = ["pngdefry.c"]
 
     # add args to list to args
     # fall back to default flags if None
@@ -173,11 +173,11 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
     file_paths = _get_file_list(file)
     args.extend(file_paths)
 
-    argc = len(args) + 1 # the 1 is expected as the name used to run the program
+    argc = len(args)
 
     # convert args to array useable by C
-    byte_args = list(map(_encode_utf_8, args))
-    argv = (ctypes.c_char_p * argc)(*byte_args)
+    byte_args = list(map(_encode_utf_8, args)) + [None] # need explicit nullptr at the end
+    argv = (ctypes.c_char_p * (argc + 1))(*byte_args)
 
     _pngdefry_lib.main(argc, argv)
 
