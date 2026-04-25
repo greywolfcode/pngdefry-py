@@ -1,7 +1,7 @@
 import ctypes
+import os
 import platform
 from pathlib import Path
-import os
 
 # variable to store library in
 _pngdefry_lib = None 
@@ -23,11 +23,13 @@ def init():
     global _pngdefry_lib
     global _initalised
 
+    dir_path = Path(__file__).parent.resolve()
+
     # load required library
     if platform.system() == "Windows":
-        _pngdefry_lib = ctypes.CDLL("./pngdefry.dll")
+        _pngdefry_lib = ctypes.CDLL(Path(dir_path, "pngdefry.dll"))
     elif platform.system() == "Linux":
-        _pngdefry_lib = ctypes.CDLL("./pngdefry.so")
+        _pngdefry_lib = ctypes.CDLL(Path(dir_path, "pngdefry.so"))
     else:
         raise OSError("No library is supported for your OS (" + platform.system() + ")")
 
