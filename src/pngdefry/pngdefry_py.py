@@ -186,6 +186,7 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
     argv = (ctypes.c_char_p * (argc + 1))(*byte_args)
 
     _pngdefry_lib.main(argc, argv)
+    _pngdefry_lib.reset()
 
 # Option to use as command line tool
 if __name__ == "__main__":
