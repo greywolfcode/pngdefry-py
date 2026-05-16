@@ -190,8 +190,7 @@ def convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None
     _pngdefry_lib.main(argc, argv)
     _pngdefry_lib.reset()
 
-# Option to use as command line tool
-if __name__ == "__main__":
+def main():
     import argparse #only need argparse if running as main file
 
     parser = argparse.ArgumentParser(prog="PNGdefry-py",
@@ -213,3 +212,7 @@ if __name__ == "__main__":
 
     init()
     convert(args.files, args.suffix, args.output_path, args.a, args.l, args.v, args.i, args.p, args.d, args.C)
+
+# Option to use as command line tool
+if __name__ == "__main__":
+    main()
