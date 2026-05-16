@@ -35,3 +35,6 @@ license-files = ["LICENSE"]
 [project.urls]
 Homepage = "https://github.com/greywolfcode/pngdefrypy"
 Issues = "https://github.com/greywolfcode/pngdefrypy/issues"
+
+[project.scripts]
+pngdefrypy = "pngdefrypy:main"
