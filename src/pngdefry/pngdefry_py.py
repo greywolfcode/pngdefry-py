@@ -18,7 +18,7 @@ _ignore_bad_CRC32 = False     # -C
 
 def init():
     """
-    Initalises pngdefry-py and loads the pngdefry library for your OS
+    Initalises pngdefrypy and loads the pngdefry library for your OS
     """
     global _pngdefry_lib
     global _initalised
