@@ -30,6 +30,8 @@ def init():
         _pngdefry_lib = ctypes.CDLL(Path(dir_path, "pngdefry.dll"))
     elif platform.system() == "Linux":
         _pngdefry_lib = ctypes.CDLL(Path(dir_path, "pngdefry.so"))
+    elif platform.system() == "Darwin":
+        _pngdefry_lib = ctypes.CDLL(Path(dir_path, "pngdefry.dylib"))
     else:
         raise OSError("No library is supported for your OS (" + platform.system() + ")")
 
