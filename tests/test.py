@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import pngdefry
+import pngdefrypy
 
 file = input("\nEnter path to CgBI file: ")
 # strip off extra quotes if they exist
@@ -11,45 +11,45 @@ if (file[0] == '"' and file[-1] == '"'):
 
 print("\nTesting conversion before initalisation:\n")
 try:
-    pngdefry.convert(file)
+    pngdefrypy.convert(file)
 except(RuntimeError):
     print("Uninitalised Error succesfully thrown")
 
-pngdefry.init()
+pngdefrypy.init()
 
 
 # ____test each option_____
 print("\nTest normal:\n")
-pngdefry.convert(file)
+pngdefrypy.convert(file)
 
 print("\nTest -s:\n")
-pngdefry.convert(file, s=".png")
+pngdefrypy.convert(file, s=".png")
 
 print("\nTest -o:\n")
 # need to create directory; pngdefry won't
 Path("image_output").mkdir(exist_ok=True)
-pngdefry.convert(file, o="image_output")
+pngdpngdefrypyefry.convert(file, o="image_output")
 
 print("\nTest -a:\n")
-pngdefry.convert(file, a=True)
+pngdefrypy.convert(file, a=True)
 
 print("\nTest -l:\n")
-pngdefry.convert(file, l=True)
+pngdefrypy.convert(file, l=True)
 
 print("\nTest -v:\n")
-pngdefry.convert(file, v=True)
+pngdefrypy.convert(file, v=True)
 
 print("\nTest -i:\n")
-pngdefry.convert(file, i=1024)
+pngdefrypy.convert(file, i=1024)
 
 print("\nTest -p:\n")
-pngdefry.convert(file, p=True)
+pngdefrypy.convert(file, p=True)
 
 print("\nTest -d:\n")
-pngdefry.convert(file, d=True)
+pngdefrypy.convert(file, d=True)
 
 print("\nTest -C:\n")
-pngdefry.convert(file, C=True)
+pngdefrypy.convert(file, C=True)
 
 # ____test setting default flags____
 # No need to test them all, as setting logic is the same for all 
@@ -57,14 +57,14 @@ pngdefry.convert(file, C=True)
 print("\nTest setting default flags:\n")
 
 print("Turned on -f\n")
-pngdefry.set_flag("v", True)
-pngdefry.convert(file)
+pngdefrypy.set_flag("v", True)
+pngdefrypy.convert(file)
 
 print("\nTurned off -f\n")
-pngdefry.set_flag("v", False)
-pngdefry.convert(file)
+pngdefrypy.set_flag("v", False)
+pngdefrypy.convert(file)
 
 
 print("\nTurned on -d\n")
-pngdefry.set_flag("d", True)
-pngdefry.convert(file)
+pngdefrypy.set_flag("d", True)
+pngdefrypy.convert(file)

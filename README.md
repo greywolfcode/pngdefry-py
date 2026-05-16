@@ -7,14 +7,14 @@ Python wrapper for pngdefry CgBI to PNG converter
 
 1. `git clone https://github.com/greywolfcode/pngdefrypy --recursive`
 2. Build pngdefry (`lib/pngdefry`) as library.
-3. Place the compiled library into `src/pngdefry`
+3. Place the compiled library into `src/pngdefrypy`
 
 ### Command Line 
 
 pngdefrypy can be used as a command line application.
 
 ```
-pngdefry.py [file(s)] [args]
+pngdefrypy.py [file(s)] [args]
     -s    append suffix to output file name
     -o    write output file(s) to path
     -a    do NOT de-multiply alpha
@@ -28,7 +28,7 @@ pngdefry.py [file(s)] [args]
 
 ### Importing
 
-`import pngdefry`
+`import pngdefrypy`
 
 ## API
 
@@ -36,7 +36,7 @@ pngdefry.py [file(s)] [args]
 
 Initalises pngdefrypy. Must be run before any other pngdefrypy functions.
 
-`pngdefry.init()`
+`pngdefrypy.init()`
 
 ### set_flag(flag, value)
 
@@ -54,7 +54,7 @@ C   ignore bad CRC32 (recommended: do NOT use this, as a bad CRC32 may indicate 
 ```
 The default is False for all options.
 
-`pngdefry.set_flag(-a, True)`
+`pngdefrypy.set_flag(-a, True)`
 
 ### convert(file, s=None, o=None, a=None, l=None, v=None, i=None, p=None, d=None, C=None)
 
